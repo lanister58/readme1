@@ -1,10 +1,23 @@
 provider "aws" {
-  access_key = "Access key ID"
-  secret_key = "Secret access key"
-  region     = "us-east-1"
+	access_key = ""
+	secret_key = ""
+	region = ""
 }
-
-resource "aws_instance" "example" {
-  ami           = "ami-02b212aba9eb84405"
-  instance_type = "t2.micro"
+resource "aws_instance" "any_name" {
+	ami = ""
+	instance_type = ""
+	tags = {
+	 Name = "jack"
+	}
+	security_groups = ["${aws_security_group.sec_grp.aws}"]
+}
+resource "aws_security_group" "sec_grp" {
+	name = "sec_grp"
+	description = "for rdp"
+	ingress {
+		from_port = 3389
+		to_port = 3389
+		protocol = "tcp"
+		cidr_block = ["0.0.0.0/0"]
+	}
 }
